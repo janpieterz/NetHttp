@@ -5,9 +5,9 @@ namespace NetHttp
 {
     public partial class NetHttpClient
     {
-        public async Task HeadAsync(string url)
+        public async Task<INetResponse> HeadAsync(string url)
         {
-            await ExecuteAsync(HttpMethod.Head, url).ConfigureAwait(false);
+            return await ExecuteAsync(HttpMethod.Head, url).ConfigureAwait(false);
         }        
     }
 }

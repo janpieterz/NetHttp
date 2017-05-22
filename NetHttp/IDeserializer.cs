@@ -5,6 +5,6 @@ namespace NetHttp
 {
     public interface IDeserializer
     {
-        Task<T> Deserialize<T>(Stream stream);
+        Task<T> Deserialize<T>(string content);
     }
 }
