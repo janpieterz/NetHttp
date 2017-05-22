@@ -42,15 +42,19 @@ namespace NetHttp
                 Content = sendResponse.Content,
                 StatusCode = sendResponse.StatusCode
             };
-            try
+            //If HttpSendAsync already adds exception request has already failed.
+            if(response.Exception == null)
             {
-                var typedData = await _deserializer.Deserialize<TResponse>(response.Content).ConfigureAwait(false);
-                response.Data = typedData;
-            }
-            catch
-            {
-                //ignored
-            }
+                try
+                {
+                    var typedData = await _deserializer.Deserialize<TResponse>(response.Content).ConfigureAwait(false);
+                    response.Data = typedData;
+                }
+                catch (Exception exception)
+                {
+                    response.Exception = new DeserialisationException(exception);
+                }
+            }           
             
             return response;
         }
@@ -78,9 +82,9 @@ namespace NetHttp
             {
                 typedResponse.Content = new StreamReader(stream).ReadToEnd();
             }
-            catch
+            catch (Exception exception)
             {
-                //ignored
+                typedResponse.Exception = new ContentReadException(exception);
             }
             return typedResponse;            
         }

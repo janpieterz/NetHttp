@@ -1,15 +1,17 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 
 namespace NetHttp
 {
     public interface IHttpResponse
     {        
-        string Content { get; set; }
-        HttpStatusCode StatusCode { get; set; }
+        string Content { get; }
+        HttpStatusCode StatusCode { get; }
         bool IsSuccessful { get; }
+        Exception Exception { get; }
     }
     public interface IHttpResponse<T> : IHttpResponse
     {
-        T Data { get; set; }
+        T Data { get; }
     }
 }
