@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 
 namespace NetHttp
 {
@@ -7,6 +6,7 @@ namespace NetHttp
     {
         public string Content { get; set; }
         public HttpStatusCode StatusCode { get; set; }
+        public bool IsSuccessful => ((int)StatusCode >= 200) && ((int)StatusCode <= 299);
     }
     public class HttpResponse<T> : HttpResponse, IHttpResponse<T>
     {
