@@ -1,14 +1,13 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 
 namespace NetHttp
 {
-    public interface INetResponse
+    public interface IHttpResponse
     {        
         string Content { get; set; }
         HttpStatusCode StatusCode { get; set; }     
     }
-    public interface INetResponse<T>
+    public interface IHttpResponse<T>
     {
         T Data { get; set; }
     }

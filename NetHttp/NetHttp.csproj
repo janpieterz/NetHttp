@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.6.2</Version>
+    <Version>0.6.3</Version>
     <Features>IOperation</Features>
     <Authors>Jan-Pieter Zoutewelle</Authors>
     <Company />
@@ -13,6 +13,8 @@
     <PackageProjectUrl>https://github.com/janpieterz/NetHttp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/janpieterz/NetHttp</RepositoryUrl>
     <PackageTags>REST, HTTP, API, JSON</PackageTags>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

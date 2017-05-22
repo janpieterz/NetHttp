@@ -30,14 +30,14 @@ namespace NetHttp
                 BaseAddress = new Uri(BaseUrl)
             };
         }                 
-        public async Task<INetResponse<TResponse>> ReadAsync<TResponse>(HttpMethod method, string url, HttpContent content = null)
+        public async Task<IHttpResponse<TResponse>> ReadAsync<TResponse>(HttpMethod method, string url, HttpContent content = null)
         {
             var request = new HttpRequestMessage(method, url)
             {
                 Content = content
             };
             var sendResponse = await HttpSendAsync(request).ConfigureAwait(false);
-            var response = new NetResponse<TResponse>()
+            var response = new HttpResponse<TResponse>()
             {
                 Content = sendResponse.Content,
                 StatusCode = sendResponse.StatusCode
@@ -54,7 +54,7 @@ namespace NetHttp
             
             return response;
         }
-        public async Task<INetResponse> ExecuteAsync(HttpMethod method, string url, HttpContent content = null)
+        public async Task<IHttpResponse> ExecuteAsync(HttpMethod method, string url, HttpContent content = null)
         {
             var request = new HttpRequestMessage(method, url)
             {
@@ -63,7 +63,7 @@ namespace NetHttp
             var sendResponse = await HttpSendAsync(request).ConfigureAwait(false);            
             return sendResponse;
         }
-        private async Task<INetResponse> HttpSendAsync(HttpRequestMessage request)
+        private async Task<IHttpResponse> HttpSendAsync(HttpRequestMessage request)
         {
             foreach (KeyValuePair<string, string> keyValuePair in DefaultHeaders)
             {
@@ -72,7 +72,7 @@ namespace NetHttp
             
             var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
             var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            var typedResponse = new NetResponse();
+            var typedResponse = new HttpResponse();
             typedResponse.StatusCode = response.StatusCode;
             try
             {

@@ -5,7 +5,7 @@ namespace NetHttp
 {
     public partial class NetHttpClient
     {
-        public async Task<INetResponse<TResponse>> GetAsync<TResponse>(string url)
+        public async Task<IHttpResponse<TResponse>> GetAsync<TResponse>(string url)
         {
             var response = await ReadAsync<TResponse>(HttpMethod.Get, url).ConfigureAwait(false);
             return response;
