@@ -3,8 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.6.1</Version>
+    <Version>0.6.2</Version>
     <Features>IOperation</Features>
+    <Authors>Jan-Pieter Zoutewelle</Authors>
+    <Company />
+    <Description>HTTP API client, wraps System.Net.Http with handy helpers</Description>
+    <Copyright>2017</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/janpieterz/NetHttp/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/janpieterz/NetHttp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/janpieterz/NetHttp</RepositoryUrl>
+    <PackageTags>REST, HTTP, API, JSON</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
