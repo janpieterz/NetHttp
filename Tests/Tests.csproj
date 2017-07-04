@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="FailedResponseHandling.cs" />
     <Compile Include="GenericResponseHandling.cs" />
+    <Compile Include="HeaderHandling.cs" />
     <Compile Include="TestParsing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

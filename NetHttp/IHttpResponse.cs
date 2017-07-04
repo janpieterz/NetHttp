@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Net.Http.Headers;
 
 namespace NetHttp
 {
@@ -9,6 +11,7 @@ namespace NetHttp
         HttpStatusCode StatusCode { get; }
         bool IsSuccessful { get; }
         Exception Exception { get; }
+        HttpResponseHeaders Headers { get; }
     }
     public interface IHttpResponse<T> : IHttpResponse
     {

@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NetHttp
 {
-    public partial class NetHttpClient : IDisposable, INetHttpClient
+    public partial class NetHttpClient : INetHttpClient
     {
         private readonly HttpClient _httpClient;
         public string BaseUrl { get; set; }
@@ -40,7 +41,8 @@ namespace NetHttp
             var response = new HttpResponse<TResponse>()
             {
                 Content = sendResponse.Content,
-                StatusCode = sendResponse.StatusCode
+                StatusCode = sendResponse.StatusCode,
+                Headers = sendResponse.Headers
             };
             //If HttpSendAsync already adds exception request has already failed.
             if(response.Exception == null)
@@ -76,8 +78,8 @@ namespace NetHttp
             
             var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
             var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            var typedResponse = new HttpResponse();
-            typedResponse.StatusCode = response.StatusCode;
+            
+            var typedResponse = new HttpResponse {StatusCode = response.StatusCode, Headers = response.Headers};
             try
             {
                 typedResponse.Content = new StreamReader(stream).ReadToEnd();
