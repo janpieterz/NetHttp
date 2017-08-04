@@ -12,7 +12,7 @@ namespace Tests
         public async Task TestJsonParsing()
         {
             INetHttpClient client = new NetHttpClient("https://httpbin.org");
-            var response = await client.GetAsync<IpAddressResponse>("ip");
+            var response = await client.GetAsync<IpAddressResponse>("ip").ConfigureAwait(false);
             Assert.NotNull(response);
             Assert.NotNull(response.Data);
             Assert.False(string.IsNullOrWhiteSpace(response.Data.Origin));
@@ -22,7 +22,7 @@ namespace Tests
         public async Task FailParsing()
         {
             INetHttpClient client = new NetHttpClient("https://httpbin.org");
-            var response = await client.GetAsync<FailIpResponse>("ip");
+            var response = await client.GetAsync<FailIpResponse>("ip").ConfigureAwait(false);
             Assert.NotNull(response);
             Assert.Null(response.Data);
             Assert.False(response.IsSuccessful);

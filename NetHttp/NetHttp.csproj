@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.6.7</Version>
+    <Version>0.7.0</Version>
     <Features>IOperation</Features>
     <Authors>Jan-Pieter Zoutewelle</Authors>
     <Company />

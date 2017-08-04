@@ -12,7 +12,7 @@ namespace Tests
         public async Task ValidResponse()
         {
             INetHttpClient client = new NetHttpClient("https://httpbin.org");
-            var response = await client.PostAsync("status/200");
+            var response = await client.PostAsync("status/200").ConfigureAwait(false);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.True(response.IsSuccessful);
         }
@@ -24,7 +24,7 @@ namespace Tests
             var response = await client.PostJsonAsync<TestRequest, TestResponse>("post", new TestRequest()
             {
                 Test = guid.ToString()
-            });
+            }).ConfigureAwait(false);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.True(response.IsSuccessful);
             Assert.False(string.IsNullOrWhiteSpace(response.Content));
@@ -39,7 +39,7 @@ namespace Tests
             var response = await client.PutJsonAsync<TestRequest, TestResponse>("put", new TestRequest()
             {
                 Test = guid.ToString()
-            });
+            }).ConfigureAwait(false);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.True(response.IsSuccessful);
             Assert.False(string.IsNullOrWhiteSpace(response.Content));
@@ -54,7 +54,7 @@ namespace Tests
             var response = await client.PatchJsonAsync<TestRequest, TestResponse>("patch", new TestRequest()
             {
                 Test = guid.ToString()
-            });
+            }).ConfigureAwait(false);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.True(response.IsSuccessful);
             Assert.False(string.IsNullOrWhiteSpace(response.Content));
@@ -69,7 +69,7 @@ namespace Tests
             var response = await client.DeleteJsonAsync<TestRequest, TestResponse>("delete", new TestRequest()
             {
                 Test = guid.ToString()
-            });
+            }).ConfigureAwait(false);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.True(response.IsSuccessful);
             Assert.False(string.IsNullOrWhiteSpace(response.Content));

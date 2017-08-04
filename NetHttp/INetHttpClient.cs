@@ -10,6 +10,7 @@ namespace NetHttp
         Task<IHttpResponse<TResponse>> ReadAsync<TResponse>(HttpMethod method, string url, HttpContent content = null);
         Task<IHttpResponse> ExecuteAsync(HttpMethod method, string url, HttpContent content = null);
         Dictionary<string, string> DefaultHeaders { get; }
+        void SetBasicAuthCredentials(string username, string password);
 
         #region HTTP Method Helpers
         Task<IHttpResponse> DeleteAsync(string url);

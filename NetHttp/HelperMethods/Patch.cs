@@ -5,7 +5,7 @@ namespace NetHttp
 {    
     public partial class NetHttpClient
     {
-        private HttpMethod _patch = new HttpMethod("PATCH");
+        private readonly HttpMethod _patch = new HttpMethod("PATCH");
         public async Task<IHttpResponse> PatchAsync(string url)
         {
             return await ExecuteAsync(_patch, url).ConfigureAwait(false);

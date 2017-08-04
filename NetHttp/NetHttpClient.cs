@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,7 +30,14 @@ namespace NetHttp
             {
                 BaseAddress = new Uri(BaseUrl)
             };
-        }                 
+        }
+
+        public void SetBasicAuthCredentials(string username, string password)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
+                Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}")));
+        }
+
         public async Task<IHttpResponse<TResponse>> ReadAsync<TResponse>(HttpMethod method, string url, HttpContent content = null)
         {
             var request = new HttpRequestMessage(method, url)
