@@ -15,7 +15,7 @@ namespace NetHttp
         }
         public Task<IHttpResponse> OptionsAsync<TRequest>(string url, TRequest request)
         {
-            return CallAsync<TRequest>(HttpMethod.Options, url, request);
+            return CallAsync(HttpMethod.Options, url, request);
         }
         public Task<IHttpResponse<TResponse>> OptionsAsync<TResponse>(string url, HttpContent content)
         {

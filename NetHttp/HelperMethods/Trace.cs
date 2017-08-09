@@ -15,7 +15,7 @@ namespace NetHttp
         }
         public Task<IHttpResponse> TraceAsync<TRequest>(string url, TRequest request)
         {
-            return CallAsync<TRequest>(HttpMethod.Trace, url, request);
+            return CallAsync(HttpMethod.Trace, url, request);
         }
         public Task<IHttpResponse<TResponse>> TraceAsync<TResponse>(string url, HttpContent content)
         {

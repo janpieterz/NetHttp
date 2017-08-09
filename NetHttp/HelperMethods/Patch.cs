@@ -16,7 +16,7 @@ namespace NetHttp
         }
         public Task<IHttpResponse> PatchAsync<TRequest>(string url, TRequest request)
         {
-            return CallAsync<TRequest>(_patch, url, request);
+            return CallAsync(_patch, url, request);
         }
         public Task<IHttpResponse<TResponse>> PatchAsync<TResponse>(string url, HttpContent content)
         {

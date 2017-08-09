@@ -15,7 +15,7 @@ namespace NetHttp
         }
         public Task<IHttpResponse> DeleteAsync<TRequest>(string url, TRequest request)
         {
-            return CallAsync<TRequest>(HttpMethod.Delete, url, request);
+            return CallAsync(HttpMethod.Delete, url, request);
         }
         public Task<IHttpResponse<TResponse>> DeleteAsync<TResponse>(string url, HttpContent content)
         {

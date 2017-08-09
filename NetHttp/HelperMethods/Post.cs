@@ -15,7 +15,7 @@ namespace NetHttp
         }
         public Task<IHttpResponse> PostAsync<TRequest>(string url, TRequest request)
         {
-            return CallAsync<TRequest>(HttpMethod.Post, url, request);
+            return CallAsync(HttpMethod.Post, url, request);
         }
         public Task<IHttpResponse<TResponse>> PostAsync<TResponse>(string url, HttpContent content)
         {

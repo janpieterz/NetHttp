@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Serialization;
 using NetHttp.Serializers;
 using NetHttp.Deserializers;
 
@@ -16,8 +14,8 @@ namespace NetHttp
     {
         private readonly HttpClient _httpClient;
         public string BaseUrl { get; set; }
-        public IDeserialize Deserializer {get;set;} = new Deserializers.JsonDeserializer();
-        public ISerialize Serializer {get;set;} = new Serializers.JsonSerializer();
+        public IDeserialize Deserializer {get;set;} = new JsonDeserializer();
+        public ISerialize Serializer {get;set;} = new JsonSerializer();
         public Dictionary<string, string> DefaultHeaders { get; } = new Dictionary<string, string>()
         {
             {"Accept", "application/json" },
@@ -52,12 +50,12 @@ namespace NetHttp
         }
         public async Task<IHttpResponse<TResponse>> CallAsync<TRequest, TResponse>(HttpMethod method, string url, TRequest request)
         {
-            HttpContent content = await GetSerializedContent(request);
-            return await CallAsync<TResponse>(method, url, content);
+            HttpContent content = await GetSerializedContent(request).ConfigureAwait(false);
+            return await CallAsync<TResponse>(method, url, content).ConfigureAwait(false);
         }
         public async Task<IHttpResponse> CallAsync<TRequest>(HttpMethod method,string url, TRequest request)
         {
-            HttpContent content = await GetSerializedContent(request);
+            HttpContent content = await GetSerializedContent(request).ConfigureAwait(false);
             return await CallAsync(method, url, content).ConfigureAwait(false);
         }
         public async Task<IHttpResponse<TResponse>> CallAsync<TResponse>(HttpMethod method, string url, HttpContent content)
@@ -135,7 +133,7 @@ namespace NetHttp
             return typedResponse;            
         }
         private async Task<StringContent> GetSerializedContent(object @object){
-            var content = await Serializer.Serialize(@object);
+            var content = await Serializer.Serialize(@object).ConfigureAwait(false);
             return new StringContent(content, Encoding.UTF8, Serializer.ContentType);
         }
         public void Dispose()
