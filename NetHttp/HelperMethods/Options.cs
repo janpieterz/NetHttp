@@ -5,28 +5,25 @@ namespace NetHttp
 {
     public partial class NetHttpClient
     {
-        public async Task<IHttpResponse> OptionsAsync(string url)
+        public Task<IHttpResponse> OptionsAsync(string url)
         {
-            return await ExecuteAsync(HttpMethod.Options, url).ConfigureAwait(false);
+            return CallAsync(HttpMethod.Options, url);
         }
-        public Task<IHttpResponse<TResponse>> OptionsJsonAsync<TRequest, TResponse>(string url, TRequest request)
+        public Task<IHttpResponse<TResponse>> OptionsAsync<TRequest, TResponse>(string url, TRequest request)
         {
-            HttpContent jsonContent = GetJsonContent(request);
-            return OptionsAsync<TResponse>(url, jsonContent);
+            return CallAsync<TRequest, TResponse>(HttpMethod.Options, url, request);
         }
-        public async Task<IHttpResponse> OptionsJsonAsync<TRequest>(string url, TRequest request)
+        public Task<IHttpResponse> OptionsAsync<TRequest>(string url, TRequest request)
         {
-            HttpContent jsonContent = GetJsonContent(request);
-            return await OptionsAsync(url, jsonContent).ConfigureAwait(false);
+            return CallAsync<TRequest>(HttpMethod.Options, url, request);
         }
-        public async Task<IHttpResponse<TResponse>> OptionsAsync<TResponse>(string url, HttpContent content)
+        public Task<IHttpResponse<TResponse>> OptionsAsync<TResponse>(string url, HttpContent content)
         {
-            var response = await ReadAsync<TResponse>(HttpMethod.Options, url, content).ConfigureAwait(false);
-            return response;
+            return CallAsync<TResponse>(HttpMethod.Options, url, content);
         }
-        public async Task<IHttpResponse> OptionsAsync(string url, HttpContent content)
+        public Task<IHttpResponse> OptionsAsync(string url, HttpContent content)
         {
-            return await ExecuteAsync(HttpMethod.Options, url, content).ConfigureAwait(false);
+            return CallAsync(HttpMethod.Options, url, content);
         }
     }
 }

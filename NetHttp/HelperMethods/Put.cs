@@ -5,28 +5,25 @@ namespace NetHttp
 {
     public partial class NetHttpClient
     {
-        public async Task<IHttpResponse> PutAsync(string url)
+        public Task<IHttpResponse> PutAsync(string url)
         {
-            return await ExecuteAsync(HttpMethod.Put, url).ConfigureAwait(false);
+            return ExecuteAsync(HttpMethod.Put, url);
         }
-        public Task<IHttpResponse<TResponse>> PutJsonAsync<TRequest, TResponse>(string url, TRequest request)
+        public Task<IHttpResponse<TResponse>> PutAsync<TRequest, TResponse>(string url, TRequest request)
         {
-            HttpContent jsonContent = GetJsonContent(request);
-            return PutAsync<TResponse>(url, jsonContent);
+            return CallAsync<TRequest, TResponse>(HttpMethod.Put, url, request);
         }
-        public async Task<IHttpResponse> PutJsonAsync<TRequest>(string url, TRequest request)
+        public Task<IHttpResponse> PutAsync<TRequest>(string url, TRequest request)
         {
-            HttpContent jsonContent = GetJsonContent(request);
-            return await PutAsync(url, jsonContent).ConfigureAwait(false);
+            return CallAsync<TRequest>(HttpMethod.Put, url, request);
         }
-        public async Task<IHttpResponse<TResponse>> PutAsync<TResponse>(string url, HttpContent content)
+        public Task<IHttpResponse<TResponse>> PutAsync<TResponse>(string url, HttpContent content)
         {
-            var response = await ReadAsync<TResponse>(HttpMethod.Put, url, content).ConfigureAwait(false);
-            return response;
+            return CallAsync<TResponse>(HttpMethod.Put, url, content);
         }
-        public async Task<IHttpResponse> PutAsync(string url, HttpContent content)
+        public Task<IHttpResponse> PutAsync(string url, HttpContent content)
         {
-            return await ExecuteAsync(HttpMethod.Put, url, content).ConfigureAwait(false);
+            return CallAsync(HttpMethod.Put, url, content);
         }
     }
 }

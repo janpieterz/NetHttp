@@ -5,28 +5,25 @@ namespace NetHttp
 {
     public partial class NetHttpClient
     {
-        public async Task<IHttpResponse> TraceAsync(string url)
+        public Task<IHttpResponse> TraceAsync(string url)
         {
-            return await ExecuteAsync(HttpMethod.Trace, url).ConfigureAwait(false);
+            return CallAsync(HttpMethod.Trace, url);
         }
-        public Task<IHttpResponse<TResponse>> TraceJsonAsync<TRequest, TResponse>(string url, TRequest request)
+        public Task<IHttpResponse<TResponse>> TraceAsync<TRequest, TResponse>(string url, TRequest request)
         {
-            HttpContent jsonContent = GetJsonContent(request);
-            return TraceAsync<TResponse>(url, jsonContent);
+            return CallAsync<TRequest, TResponse>(HttpMethod.Trace, url, request);
         }
-        public async Task<IHttpResponse> TraceJsonAsync<TRequest>(string url, TRequest request)
+        public Task<IHttpResponse> TraceAsync<TRequest>(string url, TRequest request)
         {
-            HttpContent jsonContent = GetJsonContent(request);
-            return await TraceAsync(url, jsonContent).ConfigureAwait(false);
+            return CallAsync<TRequest>(HttpMethod.Trace, url, request);
         }
-        public async Task<IHttpResponse<TResponse>> TraceAsync<TResponse>(string url, HttpContent content)
+        public Task<IHttpResponse<TResponse>> TraceAsync<TResponse>(string url, HttpContent content)
         {
-            var response = await ReadAsync<TResponse>(HttpMethod.Trace, url, content).ConfigureAwait(false);
-            return response;
+            return CallAsync<TResponse>(HttpMethod.Trace, url, content);
         }
-        public async Task<IHttpResponse> TraceAsync(string url, HttpContent content)
+        public Task<IHttpResponse> TraceAsync(string url, HttpContent content)
         {
-            return await ExecuteAsync(HttpMethod.Trace, url, content).ConfigureAwait(false);
-        }
+            return CallAsync(HttpMethod.Trace, url, content);
+        }        
     }
 }

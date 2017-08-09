@@ -6,6 +6,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Serialization;
+using NetHttp.Serializers;
+using NetHttp.Deserializers;
 
 namespace NetHttp
 {
@@ -13,12 +16,14 @@ namespace NetHttp
     {
         private readonly HttpClient _httpClient;
         public string BaseUrl { get; set; }
-        private readonly IDeserializer _deserializer = new JsonDeserializer();
+        public IDeserialize Deserializer {get;set;} = new Deserializers.JsonDeserializer();
+        public ISerialize Serializer {get;set;} = new Serializers.JsonSerializer();
         public Dictionary<string, string> DefaultHeaders { get; } = new Dictionary<string, string>()
         {
             {"Accept", "application/json" },
             {"User-Agent", "NetHTTP/1.0" }
         };
+
         public NetHttpClient(string baseUrl)
         {
             BaseUrl = baseUrl ?? throw new ArgumentException(nameof(baseUrl));
@@ -36,6 +41,29 @@ namespace NetHttp
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
                 Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}")));
+        }
+        
+        public async Task<IHttpResponse> CallAsync(HttpMethod method, string url, HttpContent content){
+            return await ExecuteAsync(method, url, content).ConfigureAwait(false);
+        }
+        public async Task<IHttpResponse> CallAsync(HttpMethod method, string url)
+        {
+            return await ExecuteAsync(method, url).ConfigureAwait(false);
+        }
+        public async Task<IHttpResponse<TResponse>> CallAsync<TRequest, TResponse>(HttpMethod method, string url, TRequest request)
+        {
+            HttpContent content = await GetSerializedContent(request);
+            return await CallAsync<TResponse>(method, url, content);
+        }
+        public async Task<IHttpResponse> CallAsync<TRequest>(HttpMethod method,string url, TRequest request)
+        {
+            HttpContent content = await GetSerializedContent(request);
+            return await CallAsync(method, url, content).ConfigureAwait(false);
+        }
+        public async Task<IHttpResponse<TResponse>> CallAsync<TResponse>(HttpMethod method, string url, HttpContent content)
+        {
+            var response = await ReadAsync<TResponse>(method, url, content).ConfigureAwait(false);
+            return response;
         }
 
         public async Task<IHttpResponse<TResponse>> ReadAsync<TResponse>(HttpMethod method, string url, HttpContent content = null)
@@ -56,7 +84,7 @@ namespace NetHttp
             {
                 try
                 {
-                    var typedData = await _deserializer.Deserialize<TResponse>(response.Content).ConfigureAwait(false);
+                    var typedData = await Deserializer.Deserialize<TResponse>(response.Content).ConfigureAwait(false);
                     response.Data = typedData;
                 }
                 catch (Exception exception)
@@ -97,10 +125,9 @@ namespace NetHttp
             }
             return typedResponse;            
         }
-        private StringContent GetJsonContent(object @object)
-        {
-            var json = JsonConvert.SerializeObject(@object);
-            return new StringContent(json, Encoding.UTF8, "application/json");
+        private async Task<StringContent> GetSerializedContent(object @object){
+            var content = await Serializer.Serialize(@object);
+            return new StringContent(content, Encoding.UTF8, Serializer.ContentType);
         }
         public void Dispose()
         {

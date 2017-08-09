@@ -6,28 +6,25 @@ namespace NetHttp
     public partial class NetHttpClient
     {
         private readonly HttpMethod _patch = new HttpMethod("PATCH");
-        public async Task<IHttpResponse> PatchAsync(string url)
+        public Task<IHttpResponse> PatchAsync(string url)
         {
-            return await ExecuteAsync(_patch, url).ConfigureAwait(false);
+            return CallAsync(_patch, url);
         }
-        public Task<IHttpResponse<TResponse>> PatchJsonAsync<TRequest, TResponse>(string url, TRequest request)
+        public Task<IHttpResponse<TResponse>> PatchAsync<TRequest, TResponse>(string url, TRequest request)
         {
-            HttpContent jsonContent = GetJsonContent(request);
-            return PatchAsync<TResponse>(url, jsonContent);
+            return CallAsync<TRequest, TResponse>(_patch, url, request);
         }
-        public async Task<IHttpResponse> PatchJsonAsync<TRequest>(string url, TRequest request)
+        public Task<IHttpResponse> PatchAsync<TRequest>(string url, TRequest request)
         {
-            HttpContent jsonContent = GetJsonContent(request);
-            return await PatchAsync(url, jsonContent).ConfigureAwait(false);
+            return CallAsync<TRequest>(_patch, url, request);
         }
-        public async Task<IHttpResponse<TResponse>> PatchAsync<TResponse>(string url, HttpContent content)
+        public Task<IHttpResponse<TResponse>> PatchAsync<TResponse>(string url, HttpContent content)
         {
-            var response = await ReadAsync<TResponse>(_patch, url, content).ConfigureAwait(false);
-            return response;
+            return CallAsync<TResponse>(_patch, url, content);
         }
-        public async Task<IHttpResponse> PatchAsync(string url, HttpContent content)
+        public Task<IHttpResponse> PatchAsync(string url, HttpContent content)
         {
-            return await ExecuteAsync(_patch, url, content).ConfigureAwait(false);
+            return CallAsync(_patch, url, content);
         }
     }
 }

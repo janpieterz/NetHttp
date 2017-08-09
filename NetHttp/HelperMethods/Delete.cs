@@ -5,29 +5,26 @@ namespace NetHttp
 {
     public partial class NetHttpClient
     {
-        public async Task<IHttpResponse> DeleteAsync(string url)
+        public Task<IHttpResponse> DeleteAsync(string url)
         {
-            return await ExecuteAsync(HttpMethod.Delete, url).ConfigureAwait(false);
+            return CallAsync(HttpMethod.Delete, url);
         }
-        public Task<IHttpResponse<TResponse>> DeleteJsonAsync<TRequest, TResponse>(string url, TRequest request)
+        public Task<IHttpResponse<TResponse>> DeleteAsync<TRequest, TResponse>(string url, TRequest request)
         {
-            HttpContent jsonContent = GetJsonContent(request);
-            return DeleteAsync<TResponse>(url, jsonContent);
+            return CallAsync<TRequest, TResponse>(HttpMethod.Delete, url, request);
         }
-        public async Task<IHttpResponse> DeleteJsonAsync<TRequest>(string url, TRequest request)
+        public Task<IHttpResponse> DeleteAsync<TRequest>(string url, TRequest request)
         {
-            HttpContent jsonContent = GetJsonContent(request);
-            return await DeleteAsync(url, jsonContent).ConfigureAwait(false);
+            return CallAsync<TRequest>(HttpMethod.Delete, url, request);
         }
-        public async Task<IHttpResponse<TResponse>> DeleteAsync<TResponse>(string url, HttpContent content)
+        public Task<IHttpResponse<TResponse>> DeleteAsync<TResponse>(string url, HttpContent content)
         {
-            var response = await ReadAsync<TResponse>(HttpMethod.Delete, url, content).ConfigureAwait(false);
-            return response;
+            return CallAsync<TResponse>(HttpMethod.Delete, url, content);
         }
 
-        public async Task<IHttpResponse> DeleteAsync(string url, HttpContent content)
+        public Task<IHttpResponse> DeleteAsync(string url, HttpContent content)
         {
-            return await ExecuteAsync(HttpMethod.Delete, url, content).ConfigureAwait(false);
+            return CallAsync(HttpMethod.Delete, url, content);
         }
     }
 }

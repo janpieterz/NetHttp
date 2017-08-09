@@ -21,7 +21,7 @@ namespace Tests
         {
             INetHttpClient client = new NetHttpClient("https://httpbin.org");
             Guid guid = Guid.NewGuid();
-            var response = await client.PostJsonAsync<TestRequest, TestResponse>("post", new TestRequest()
+            var response = await client.PostAsync<TestRequest, TestResponse>("post", new TestRequest()
             {
                 Test = guid.ToString()
             }).ConfigureAwait(false);
@@ -36,7 +36,7 @@ namespace Tests
         {
             INetHttpClient client = new NetHttpClient("https://httpbin.org");
             Guid guid = Guid.NewGuid();
-            var response = await client.PutJsonAsync<TestRequest, TestResponse>("put", new TestRequest()
+            var response = await client.PutAsync<TestRequest, TestResponse>("put", new TestRequest()
             {
                 Test = guid.ToString()
             }).ConfigureAwait(false);
@@ -51,7 +51,7 @@ namespace Tests
         {
             INetHttpClient client = new NetHttpClient("https://httpbin.org");
             Guid guid = Guid.NewGuid();
-            var response = await client.PatchJsonAsync<TestRequest, TestResponse>("patch", new TestRequest()
+            var response = await client.PatchAsync<TestRequest, TestResponse>("patch", new TestRequest()
             {
                 Test = guid.ToString()
             }).ConfigureAwait(false);
@@ -66,7 +66,7 @@ namespace Tests
         {
             INetHttpClient client = new NetHttpClient("https://httpbin.org");
             Guid guid = Guid.NewGuid();
-            var response = await client.DeleteJsonAsync<TestRequest, TestResponse>("delete", new TestRequest()
+            var response = await client.DeleteAsync<TestRequest, TestResponse>("delete", new TestRequest()
             {
                 Test = guid.ToString()
             }).ConfigureAwait(false);
