@@ -34,5 +34,18 @@ namespace Tests
             Assert.Equal(418, (int)response.StatusCode);
             Assert.False(response.IsSuccessful);
         }
+
+        [Fact]
+        public async Task HandleUnknownDomain()
+        {
+            INetHttpClient client = new NetHttpClient("https://z93nu5z9.com/");
+            var response = await client.PostAsync("random").ConfigureAwait(false);
+            Assert.NotNull(response);
+            Assert.Equal(0, (int)response.StatusCode);
+            Assert.False(response.IsSuccessful);
+            Assert.Equal("An error occurred while sending the request.", response.Exception.Message);
+            Assert.NotNull(response.Exception.InnerException);
+            Assert.Equal("The server name or address could not be resolved", response.Exception.InnerException.Message);
+        }
     }
 }

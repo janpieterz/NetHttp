@@ -76,6 +76,16 @@ namespace Tests
             Assert.True(response.Content.Contains(guid.ToString()));
             Assert.Equal(guid.ToString(), response.Data.Json.Test);
         }
+
+        [Fact]
+        public async Task FollowRedirectsToGet()
+        {
+            INetHttpClient client = new NetHttpClient("https://httpbin.org");
+            var response = await client.GetAsync<GetResponse>("redirect/5").ConfigureAwait(false);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.True(response.IsSuccessful);
+            Assert.Equal("https://httpbin.org/get", response.Data.Url);
+        }
     }
 
     public class TestRequest
@@ -85,5 +95,10 @@ namespace Tests
     public class TestResponse
     {
         public TestRequest Json { get; set; }
+    }
+
+    public class GetResponse
+    {
+        public string Url { get; set; }
     }
 }

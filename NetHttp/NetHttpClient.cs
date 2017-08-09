@@ -110,19 +110,28 @@ namespace NetHttp
             {
                 request.Headers.Add(keyValuePair.Key, keyValuePair.Value);
             }
-            
-            var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
-            var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            
-            var typedResponse = new HttpResponse {StatusCode = response.StatusCode, Headers = response.Headers};
+
+            var typedResponse = new HttpResponse();
             try
             {
-                typedResponse.Content = new StreamReader(stream).ReadToEnd();
+                var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
+                var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+
+                typedResponse = new HttpResponse {StatusCode = response.StatusCode, Headers = response.Headers};
+                try
+                {
+                    typedResponse.Content = new StreamReader(stream).ReadToEnd();
+                }
+                catch (Exception exception)
+                {
+                    typedResponse.Exception = new ContentReadException(exception);
+                }
             }
-            catch (Exception exception)
+            catch (HttpRequestException requestException)
             {
-                typedResponse.Exception = new ContentReadException(exception);
+                typedResponse.Exception = requestException;
             }
+            
             return typedResponse;            
         }
         private async Task<StringContent> GetSerializedContent(object @object){
