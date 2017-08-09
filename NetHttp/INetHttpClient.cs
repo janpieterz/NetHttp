@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using NetHttp.Deserializers;
 using NetHttp.Serializers;
@@ -13,7 +13,7 @@ namespace NetHttp
         ISerialize Serializer {get;set;}
         Task<IHttpResponse<TResponse>> ReadAsync<TResponse>(HttpMethod method, string url, HttpContent content = null);
         Task<IHttpResponse> ExecuteAsync(HttpMethod method, string url, HttpContent content = null);
-        Dictionary<string, string> DefaultHeaders { get; }
+        HttpRequestHeaders DefaultHeaders { get; }
         void SetBasicAuthCredentials(string username, string password);        
         Task<IHttpResponse<TResponse>> CallAsync<TResponse>(HttpMethod method, string url, HttpContent content);
         Task<IHttpResponse> CallAsync<TRequest>(HttpMethod method,string url, TRequest request);

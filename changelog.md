@@ -1,4 +1,7 @@
-## 0.8.0 (09-08-2017)
+## 0.8.2 (09-08-2017)
+  * Expose DefaultHeaders directly instead of duplicating behavior
+
+## 0.8.1 (09-08-2017)
   * Add missing ConfigureAwait(false);
 
 ## 0.8.0 (09-08-2017)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -16,11 +15,7 @@ namespace NetHttp
         public string BaseUrl { get; set; }
         public IDeserialize Deserializer {get;set;} = new JsonDeserializer();
         public ISerialize Serializer {get;set;} = new JsonSerializer();
-        public Dictionary<string, string> DefaultHeaders { get; } = new Dictionary<string, string>()
-        {
-            {"Accept", "application/json" },
-            {"User-Agent", "NetHTTP/1.0" }
-        };
+        public HttpRequestHeaders DefaultHeaders => _httpClient.DefaultRequestHeaders;
 
         public NetHttpClient(string baseUrl)
         {
@@ -33,6 +28,8 @@ namespace NetHttp
             {
                 BaseAddress = new Uri(BaseUrl)
             };
+            DefaultHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            DefaultHeaders.UserAgent.Add(new ProductInfoHeaderValue("NetHTTP", "1.0"));
         }
 
         public void SetBasicAuthCredentials(string username, string password)
@@ -104,11 +101,6 @@ namespace NetHttp
         }
         private async Task<IHttpResponse> HttpSendAsync(HttpRequestMessage request)
         {
-            foreach (KeyValuePair<string, string> keyValuePair in DefaultHeaders)
-            {
-                request.Headers.Add(keyValuePair.Key, keyValuePair.Value);
-            }
-
             var typedResponse = new HttpResponse();
             try
             {
