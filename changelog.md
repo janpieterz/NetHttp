@@ -1,3 +1,7 @@
+## 0.9.0 
+  * Update Newtonsoft.Json to 10.0.3
+  * Update to netstandard20
+
 ## 0.8.2 (09-08-2017)
   * Expose DefaultHeaders directly instead of duplicating behavior
 
