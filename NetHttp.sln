@@ -5,12 +5,12 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetHttp", "NetHttp\NetHttp.csproj", "{3C9BD2B7-7CF2-4A67-986B-59519F4CAE7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{64D882DB-005A-4038-B5C0-1A9C7FE95121}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FAD1E005-F62C-4FD9-B5C3-3F410BF012C2}"
 	ProjectSection(SolutionItems) = preProject
 		changelog.md = changelog.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{39149D3E-870A-4733-B4EF-B29F13251E45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,10 @@ Global
 		{3C9BD2B7-7CF2-4A67-986B-59519F4CAE7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C9BD2B7-7CF2-4A67-986B-59519F4CAE7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C9BD2B7-7CF2-4A67-986B-59519F4CAE7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{64D882DB-005A-4038-B5C0-1A9C7FE95121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64D882DB-005A-4038-B5C0-1A9C7FE95121}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64D882DB-005A-4038-B5C0-1A9C7FE95121}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64D882DB-005A-4038-B5C0-1A9C7FE95121}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39149D3E-870A-4733-B4EF-B29F13251E45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39149D3E-870A-4733-B4EF-B29F13251E45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39149D3E-870A-4733-B4EF-B29F13251E45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39149D3E-870A-4733-B4EF-B29F13251E45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

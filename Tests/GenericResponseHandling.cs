@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using NetHttp;
 using Xunit;
 
-namespace Tests
+namespace NetHttp.Tests
 {
     public class GenericResponseHandling
     {
@@ -28,7 +27,7 @@ namespace Tests
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.True(response.IsSuccessful);
             Assert.False(string.IsNullOrWhiteSpace(response.Content));
-            Assert.True(response.Content.Contains(guid.ToString()));
+            Assert.Contains(guid.ToString(), response.Content);
             Assert.Equal(guid.ToString(), response.Data.Json.Test);
         }
         [Fact]
@@ -43,7 +42,7 @@ namespace Tests
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.True(response.IsSuccessful);
             Assert.False(string.IsNullOrWhiteSpace(response.Content));
-            Assert.True(response.Content.Contains(guid.ToString()));
+            Assert.Contains(guid.ToString(), response.Content);
             Assert.Equal(guid.ToString(), response.Data.Json.Test);
         }
         [Fact]
@@ -58,7 +57,7 @@ namespace Tests
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.True(response.IsSuccessful);
             Assert.False(string.IsNullOrWhiteSpace(response.Content));
-            Assert.True(response.Content.Contains(guid.ToString()));
+            Assert.Contains(guid.ToString(), response.Content);
             Assert.Equal(guid.ToString(), response.Data.Json.Test);
         }
         [Fact]
@@ -73,7 +72,7 @@ namespace Tests
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.True(response.IsSuccessful);
             Assert.False(string.IsNullOrWhiteSpace(response.Content));
-            Assert.True(response.Content.Contains(guid.ToString()));
+            Assert.Contains(guid.ToString(), response.Content);
             Assert.Equal(guid.ToString(), response.Data.Json.Test);
         }
 

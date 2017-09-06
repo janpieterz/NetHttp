@@ -1,9 +1,8 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
-using NetHttp;
 using Xunit;
 
-namespace Tests
+namespace NetHttp.Tests
 {
     public class FailedResponseHandling
     {
