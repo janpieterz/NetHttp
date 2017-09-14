@@ -1,3 +1,6 @@
+## 0.9.1  
+  * If content is already HttpContent request won't be serialized
+
 ## 0.9.0 
   * Update Newtonsoft.Json to 10.0.3
   * Update to netstandard20
