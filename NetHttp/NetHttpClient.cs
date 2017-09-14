@@ -124,7 +124,11 @@ namespace NetHttp
             
             return typedResponse;            
         }
-        private async Task<StringContent> GetSerializedContent(object @object){
+        private async Task<HttpContent> GetSerializedContent(object @object){
+            if (@object.GetType() == typeof(HttpContent))
+            {
+                return @object as HttpContent;
+            }
             var content = await Serializer.Serialize(@object).ConfigureAwait(false);
             return new StringContent(content, Encoding.UTF8, Serializer.ContentType);
         }
