@@ -1,3 +1,6 @@
+## 0.9.2
+  * If content is or subtypes HttpContent request won't be serialized
+
 ## 0.9.1  
   * If content is already HttpContent request won't be serialized
 

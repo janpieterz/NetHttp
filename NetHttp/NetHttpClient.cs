@@ -125,7 +125,7 @@ namespace NetHttp
             return typedResponse;            
         }
         private async Task<HttpContent> GetSerializedContent(object @object){
-            if (@object.GetType() == typeof(HttpContent))
+            if (@object is HttpContent)
             {
                 return @object as HttpContent;
             }
